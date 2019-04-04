@@ -1,6 +1,4 @@
 require 'radar/configuration'
-require 'radar/version'
-require 'radar/middleware/rails/radar'
 require 'radar/railtie'
 
 module Radar
