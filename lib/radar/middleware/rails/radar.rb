@@ -9,16 +9,12 @@ module Radar
         end
 
         def call(env)
-          _, headers, body = response = @app.call(env)
-
-          if headers['X-Cascade'] == 'pass'
-            body.close if body.respond_to?(:close)
-            raise ActionController::RoutingError, "No route matches [#{env['REQUEST_METHOD']}] #{env['PATH_INFO'].inspect}"
-          end
-
-          response
+          @app.call(env)
+        rescue Error
+          raise
         rescue Exception => exception
-          Reporter.new(exception).send
+          Reporter.new(exception, env).send
+          raise
         end
       end
     end

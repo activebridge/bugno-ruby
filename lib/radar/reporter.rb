@@ -1,23 +1,34 @@
-require 'uri'
 require 'net/http'
+require 'uri'
+require 'json'
 
 require 'radar/event'
 
 module Radar
   class Reporter
-    attr_reader :exception, :event
+    attr_reader :exception, :event, :api_url, :api_key
 
-    def initialize(exception)
+    def initialize(exception, env)
       @exception = exception
-      @event = Event.new(exception)
+      @event = Event.new(exception, env)
+      @api_url = Radar.configuration.api_url
+      @api_key = Radar.configuration.api_key
     end
 
     def send
-      uri = URI('http://localhost:3000/api/v1/projects')
-      request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
-      request.body = @event.data.to_json
-      response = Net::HTTP.start(uri.hostname, uri.port) do |http|
-        http.request(request)
+      uri = URI.parse("#{api_url}/api/v1/projects/#{api_key}/events")
+
+      header = { 'Content-Type': 'application/json' }
+
+      http = Net::HTTP.new(uri.host, uri.port)
+
+      request = Net::HTTP::Post.new(uri.request_uri, header)
+      data = @event.event
+      request.body = data.to_json
+      begin
+        response = http.request(request)
+      rescue StandardError => error
+        raise Radar::Error, error.message
       end
     end
   end

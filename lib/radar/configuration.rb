@@ -1,5 +1,5 @@
 module Radar
-  API_URL = 'https://api-radar.herokuapp.com'
+  API_URL = 'https://api-radar.herokuapp.com'.freeze
 
   class Configuration
     attr_accessor :api_key
@@ -19,8 +19,7 @@ module Radar
     end
 
     def get
-      { api_key: @api_key,
-        environment: @environment,
+      { environment: @environment,
         logger: @logger,
         root: @root,
         framework: @framework }
