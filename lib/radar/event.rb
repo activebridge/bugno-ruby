@@ -24,8 +24,8 @@ module Radar
         server_data: server_data,
         backtrace: exception.backtrace
       }
-      @event.merge(Radar.configuration.get)
-      @event.merge(extract_request_data_from_rack(env))
+      @event.merge!(Radar.configuration.get)
+      @event.merge!(extract_request_data_from_rack(env))
     end
-end
+  end
 end

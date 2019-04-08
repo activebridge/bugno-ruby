@@ -17,16 +17,16 @@ module Radar
 
     def send
       uri = URI.parse("#{api_url}/api/v1/projects/#{api_key}/events")
-
-      header = { 'Content-Type': 'application/json' }
-
       http = Net::HTTP.new(uri.host, uri.port)
 
+      http.use_ssl = true if uri.scheme == 'https'
+
+      header = { 'Content-Type': 'application/json' }
       request = Net::HTTP::Post.new(uri.request_uri, header)
       data = @event.event
       request.body = data.to_json
       begin
-        response = http.request(request)
+        http.request(request)
       rescue StandardError => error
         raise Radar::Error, error.message
       end
