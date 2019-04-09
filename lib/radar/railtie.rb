@@ -11,9 +11,7 @@ module Radar
     initializer 'radar.configuration' do
       config.after_initialize do
         Radar.configure do |config|
-          config.root ||= ::Rails.root
           config.framework = "Rails: #{::Rails::VERSION::STRING}"
-          config.logger = proc { ::Rails.logger }
           config.environment = ENV['RACK_ENV'] || ::Rails.env
         end
       end

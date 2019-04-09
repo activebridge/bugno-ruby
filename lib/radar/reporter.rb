@@ -26,7 +26,8 @@ module Radar
       data = @event.event
       request.body = data.to_json
       begin
-        http.request(request)
+        response = http.request(request)
+        Rails.logger.warn "[Radar] #{response.message} - #{response.code}"
       rescue StandardError => error
         raise Radar::Error, error.message
       end

@@ -12,16 +12,12 @@ module Radar
 
       data = {
         url: url,
-        params: route_params(env),
-        GET: get_params(rack_req),
-        POST: post_params(rack_req),
         user_ip: user_ip(env),
         headers: headers(env),
-        method: request_method(env)
+        method: request_method(env),
+        params: get_params(rack_req)
       }
-
-      data[:request_id] = env['action_dispatch.request_id'] if env['action_dispatch.request_id']
-
+      data[:params] = post_params(rack_req) if data[:params].empty?
       data
     end
 
@@ -76,18 +72,6 @@ module Radar
       rack_req.POST
     rescue StandardError
       {}
-    end
-
-    def route_params(env)
-      return {} unless defined?(Rails)
-
-      begin
-        environment = { method: request_method }
-
-        ::Rails.application.routes.recognize_path(env['PATH_INFO'], environment)
-      rescue StandardError
-        {}
-      end
     end
   end
 end
