@@ -12,9 +12,9 @@ module Radar
 
       data = {
         url: url,
-        user_ip: user_ip(env),
+        ip_address: ip_address(env),
         headers: headers(env),
-        method: request_method(env),
+        http_method: request_method(env),
         params: get_params(rack_req)
       }
       data[:params] = post_params(rack_req) if data[:params].empty?
@@ -58,8 +58,8 @@ module Radar
       [scheme, '://', host, path].join
     end
 
-    def user_ip(env)
-      user_ip_string = (env['action_dispatch.remote_ip'] || env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']).to_s
+    def ip_address(env)
+      ip_address_string = (env['action_dispatch.remote_ip'] || env['HTTP_X_REAL_IP'] || env['REMOTE_ADDR']).to_s
     end
 
     def get_params(rack_req)
