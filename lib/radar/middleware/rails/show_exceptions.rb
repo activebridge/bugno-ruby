@@ -12,7 +12,6 @@ module Radar
       def call_with_radar(env)
         call_without_radar(env)
       rescue ActionController::RoutingError => exception
-        # won't reach here if show_detailed_exceptions is true\
         raise exception
       end
 
