@@ -1,9 +1,10 @@
 require 'radar/configuration'
-require 'radar/version'
-require 'radar/middleware/rails/radar'
 require 'radar/railtie'
 
 module Radar
+  class Error < StandardError
+  end
+
   class << self
     attr_accessor :configuration
   end

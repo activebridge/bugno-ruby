@@ -1,3 +1,5 @@
+require 'radar/reporter'
+
 module Radar
   module Middleware
     module Rails
@@ -7,8 +9,12 @@ module Radar
         end
 
         def call(env)
-          response = @app.call(env)
+          @app.call(env)
+        rescue Error
+          raise
         rescue Exception => exception
+          Thread.new { Reporter.new(exception, env).send }
+          raise exception
         end
       end
     end
