@@ -1,7 +1,7 @@
+require 'logger'
 require 'net/http'
 require 'uri'
 require 'json'
-
 require 'radar/event'
 
 module Radar
@@ -27,10 +27,15 @@ module Radar
       request.body = data.to_json
       begin
         response = http.request(request)
-        Rails.logger.warn "[Radar] #{response.message} - #{response.code}"
+        logger(response)
       rescue StandardError => error
         raise Radar::Error, error.message
       end
+    end
+
+    def logger(response)
+      logger = Logger.new(STDOUT)
+      logger.info("[Radar] #{response.message} - #{response.code}")
     end
   end
 end

@@ -8,10 +8,8 @@ module Radar
     def extract_request_data_from_rack(env)
       rack_req = ::Rack::Request.new(env)
 
-      url = request_url(env)
-
       data = {
-        url: url,
+        url: request_url(env),
         ip_address: ip_address(env),
         headers: headers(env),
         http_method: request_method(env),

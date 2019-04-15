@@ -13,8 +13,8 @@ module Radar
         rescue Error
           raise
         rescue Exception => exception
-          Reporter.new(exception, env).send
-          raise
+          Thread.new { Reporter.new(exception, env).send }
+          raise exception
         end
       end
     end
