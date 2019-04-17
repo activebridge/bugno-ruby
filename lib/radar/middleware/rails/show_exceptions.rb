@@ -4,7 +4,9 @@ module Radar
   module Middleware
     module ShowExceptions
       def render_exception_with_radar(env, exception)
-        Thread.new { Reporter.new(exception, extract_scope_from(env)).send }
+        if exception.is_a?(ActionController::RoutingError)
+          Thread.new { Reporter.new(exception, extract_scope_from(env)).send }
+        end
 
         render_exception_without_radar(env, exception)
       end
