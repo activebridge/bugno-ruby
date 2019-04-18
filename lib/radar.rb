@@ -1,3 +1,4 @@
+require 'radar/generator/radar_generator'
 require 'radar/configuration'
 require 'radar/railtie'
 
