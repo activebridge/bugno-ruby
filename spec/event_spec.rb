@@ -16,7 +16,7 @@ RSpec.describe Radar::Event do
     end
 
     it 'backtrace' do
-      expect(event[:backtrace]).to eq(exception.backtrace)
+      expect(event[:backtrace]).to be_an(Array)
     end
   end
 end

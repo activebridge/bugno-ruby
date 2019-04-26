@@ -1,4 +1,6 @@
 require 'radar/request_data_extractor'
+require 'radar/backtrace'
+require 'rails'
 
 module Radar
   class Event
@@ -12,7 +14,7 @@ module Radar
     def server_data
       @server_data ||= {
         host: Socket.gethostname,
-        pid: Process.pid
+        root: Rails.root.to_s
       }
       end
 
@@ -22,7 +24,7 @@ module Radar
         title: exception.class.inspect,
         message: exception.message,
         server_data: server_data,
-        backtrace: exception.backtrace
+        backtrace: Backtrace.new(exception.backtrace).parse_backtrace
       }
       @event.merge!(Radar.configuration.get)
       @event.merge!(extract_request_data_from_rack(env))
