@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'logger'
 require 'net/http'
 require 'uri'
 require 'json'
-require 'radar/event'
+require 'bughub/event'
 
-module Radar
+module Bughub
   class Reporter
     attr_reader :exception, :event, :api_url, :api_key
 
     def initialize(exception, env)
       @exception = exception
       @event = Event.new(exception, env)
-      @api_url = Radar.configuration.api_url
-      @api_key = Radar.configuration.api_key
+      @api_url = Bughub.configuration.api_url
+      @api_key = Bughub.configuration.api_key
     end
 
     def send
@@ -28,14 +30,14 @@ module Radar
       begin
         response = http.request(request)
         logger(response)
-      rescue StandardError => error
-        raise Radar::Error, error.message
+      rescue StandardError => e
+        raise Bughub::Error, e.message
       end
     end
 
     def logger(response)
       logger = Logger.new(STDOUT)
-      logger.info("[Radar] #{response.message} - #{response.code}")
+      logger.info("[Bughub] #{response.message} - #{response.code}")
     end
   end
 end

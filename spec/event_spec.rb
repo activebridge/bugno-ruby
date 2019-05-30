@@ -1,10 +1,12 @@
-require 'dummy_environment'
-require 'radar/event'
+# frozen_string_literal: true
 
-RSpec.describe Radar::Event do
+require 'dummy_environment'
+require 'bughub/event'
+
+RSpec.describe Bughub::Event do
   let(:env) { DummyEnv.new.env }
   let(:exception) { DummyEnv.new.dummy_exception }
-  let(:event) { Radar::Event.new(exception, env).event }
+  let(:event) { Bughub::Event.new(exception, env).event }
 
   context 'returns hash with' do
     it 'timestamp' do

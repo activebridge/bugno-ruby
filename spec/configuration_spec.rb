@@ -1,7 +1,9 @@
-require 'radar/configuration'
+# frozen_string_literal: true
 
-RSpec.describe Radar::Configuration do
-  let(:configuration) { Radar::Configuration.new }
+require 'bughub/configuration'
+
+RSpec.describe Bughub::Configuration do
+  let(:configuration) { Bughub::Configuration.new }
 
   context 'has' do
     it 'an api_key' do

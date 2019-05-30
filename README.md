@@ -1,11 +1,11 @@
-# Radar
+# Bughub
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'radar', github: 'activebridge/radar-ruby'
+gem 'bughub', github: 'activebridge/bughub-ruby'
 ```
 
 And then execute:
@@ -14,12 +14,12 @@ And then execute:
 
 ## Usage
 
-    $ rails g radar [API-KEY]
+    $ rails g bughub [API-KEY]
 
 OR
 
-    $ rails g radar
-    $ export RADAR-API_KEY=[API_KEY]
+    $ rails g bughub
+    $ export BUGHUB-API_KEY=[API_KEY]
 
 ## License
 

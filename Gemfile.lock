@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    radar (0.1.0)
+    bughub (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -73,7 +73,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     nio4r (2.3.1)
-    nokogiri (1.10.2)
+    nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -112,7 +112,7 @@ GEM
       rspec-mocks (~> 3.8.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.2)
+    rspec-expectations (3.8.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-mocks (3.8.0)
@@ -143,9 +143,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bughub!
   bundler (~> 2.0)
   pry
-  radar!
   rails
   rake (~> 10.0)
   rspec (~> 3.0)
