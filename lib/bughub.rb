@@ -1,8 +1,10 @@
-require 'radar/generator/radar_generator'
-require 'radar/configuration'
-require 'radar/railtie'
+# frozen_string_literal: true
 
-module Radar
+require 'bughub/generator/bughub_generator'
+require 'bughub/configuration'
+require 'bughub/railtie'
+
+module Bughub
   class Error < StandardError
   end
 

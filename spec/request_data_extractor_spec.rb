@@ -1,8 +1,10 @@
-require 'dummy_environment'
-require 'radar/request_data_extractor'
+# frozen_string_literal: true
 
-RSpec.describe Radar::RequestDataExtractor do
-  include Radar::RequestDataExtractor
+require 'dummy_environment'
+require 'bughub/request_data_extractor'
+
+RSpec.describe Bughub::RequestDataExtractor do
+  include Bughub::RequestDataExtractor
   let(:env) { DummyEnv.new.env }
 
   describe '#headers' do

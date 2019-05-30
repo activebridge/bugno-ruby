@@ -1,4 +1,6 @@
-module Radar
+# frozen_string_literal: true
+
+module Bughub
   class Backtrace
     MAX_CONTEXT_LENGTH = 4
 

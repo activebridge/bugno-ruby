@@ -1,5 +1,7 @@
-module Radar
-  API_URL = 'https://api-radar.herokuapp.com'.freeze
+# frozen_string_literal: true
+
+module Bughub
+  API_URL = 'https://bughub-api.herokuapp.com/'
 
   class Configuration
     attr_accessor :api_key

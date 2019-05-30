@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rack'
 
-module Radar
+module Bughub
   module RequestDataExtractor
     ALLOWED_HEADERS_REGEX = /^HTTP_|^CONTENT_TYPE$|^CONTENT_LENGTH$/.freeze
     ALLOWED_BODY_PARSEABLE_METHODS = %w[POST PUT PATCH DELETE].freeze

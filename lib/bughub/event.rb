@@ -1,8 +1,10 @@
-require 'radar/request_data_extractor'
-require 'radar/backtrace'
+# frozen_string_literal: true
+
+require 'bughub/request_data_extractor'
+require 'bughub/backtrace'
 require 'rails'
 
-module Radar
+module Bughub
   class Event
     include RequestDataExtractor
     attr_reader :event
@@ -26,7 +28,7 @@ module Radar
         server_data: server_data,
         backtrace: Backtrace.new(exception.backtrace).parse_backtrace
       }
-      @event.merge!(Radar.configuration.get)
+      @event.merge!(Bughub.configuration.get)
       @event.merge!(extract_request_data_from_rack(env))
     end
   end

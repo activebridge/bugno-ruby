@@ -1,9 +1,11 @@
-require 'radar/reporter'
+# frozen_string_literal: true
 
-module Radar
+require 'bughub/reporter'
+
+module Bughub
   module Middleware
     module Rails
-      class RadarMiddleware
+      class BughubMiddleware
         def initialize(app)
           @app = app
         end
@@ -12,9 +14,9 @@ module Radar
           @app.call(env)
         rescue Error
           raise
-        rescue Exception => exception
-          Thread.new { Reporter.new(exception, env).send }
-          raise exception
+        rescue Exception => e
+          Thread.new { Reporter.new(e, env).send }
+          raise e
         end
       end
     end

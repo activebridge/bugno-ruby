@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DummyEnv
   attr_accessor :env, :headers
 
