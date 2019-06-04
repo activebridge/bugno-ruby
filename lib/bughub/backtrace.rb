@@ -20,10 +20,13 @@ module Bughub
 
         filename = match[1]
         lineno = match[2].to_i
+        method = match[3]&.tr('0-9', '')
         frame_data = {
-          filename: filename,
+          code: nil,
           lineno: lineno,
-          method: match[3]
+          method: method,
+          context: nil,
+          filename: filename
         }
 
         frame_data.merge(extra_frame_data(filename, lineno))
