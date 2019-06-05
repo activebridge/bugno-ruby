@@ -52,7 +52,7 @@ class DummyEnv
 
   def dummy_exception
     raise NameError
-  rescue StandardError => ex
-    ex
+  rescue StandardError => e
+    e
   end
 end

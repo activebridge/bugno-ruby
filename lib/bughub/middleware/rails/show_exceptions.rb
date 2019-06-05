@@ -7,10 +7,15 @@ module Bughub
     module ShowExceptions
       def render_exception_with_bughub(env, exception)
         if exception.is_a?(ActionController::RoutingError)
-          Thread.new { Reporter.new(exception, extract_scope_from(env)).send }
+          Thread.new { Reporter.new(exception, extract_scope_from(env)).send } unless excluded_exception?(exception)
         end
 
         render_exception_without_bughub(env, exception)
+      end
+
+      def excluded_exception?(exception)
+        Bughub.configuration.exclude_rails_exceptions && \
+          Bughub.configuration.excluded_exceptions.include?(exception.class.inspect)
       end
 
       def call_with_bughub(env)

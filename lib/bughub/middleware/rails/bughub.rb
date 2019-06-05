@@ -15,8 +15,13 @@ module Bughub
         rescue Error
           raise
         rescue Exception => e
-          Thread.new { Reporter.new(e, env).send }
+          Thread.new { Reporter.new(e, env).send } unless excluded_exception?(e)
           raise e
+        end
+
+        def excluded_exception?(exception)
+          Bughub.configuration.exclude_rails_exceptions && \
+            Bughub.configuration.excluded_exceptions.include?(exception.class.inspect)
         end
       end
     end
