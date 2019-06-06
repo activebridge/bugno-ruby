@@ -2,6 +2,7 @@
 
 require 'bughub/request_data_extractor'
 require 'bughub/backtrace'
+require 'bughub/encoding/encoding'
 require 'rails'
 
 module Bughub

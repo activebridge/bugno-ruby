@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'rack'
+require 'bughub/filter/params'
+require 'bughub/encoding/encoder'
 
 module Bughub
   module RequestDataExtractor
@@ -9,16 +11,34 @@ module Bughub
 
     def extract_request_data_from_rack(env)
       rack_req = ::Rack::Request.new(env)
+      sensitive_params = sensitive_params_list(env)
+
+      post_params = scrub_params(post_params(rack_req), sensitive_params)
+      get_params = scrub_params(get_params(rack_req), sensitive_params)
 
       data = {
         url: request_url(env),
         ip_address: ip_address(env),
         headers: headers(env),
         http_method: request_method(env),
-        params: get_params(rack_req)
+        params: get_params
       }
-      data[:params] = post_params(rack_req) if data[:params].empty?
+      data[:params] = post_params if data[:params].empty?
       data
+    end
+
+    def scrub_params(params, sensitive_params)
+      options = {
+        params: params,
+        config: Bughub.configuration.scrub_fields,
+        extra_fields: sensitive_params,
+        whitelist: Bughub.configuration.scrub_whitelist
+      }
+      Bughub::Filter::Params.call(options)
+    end
+
+    def sensitive_params_list(env)
+      Array(env['action_dispatch.parameter_filter'])
     end
 
     def headers(env)
@@ -26,6 +46,8 @@ module Bughub
         name = header.gsub(/^HTTP_/, '').split('_').map(&:capitalize).join('-')
         if name == 'Cookie'
           {}
+        elsif sensitive_headers_list.include?(name)
+          { name => Bughub::Params.scrub_value }
         else
           { name => env[header] }
         end
@@ -72,6 +94,10 @@ module Bughub
       rack_req.POST
     rescue StandardError
       {}
+    end
+
+    def sensitive_headers_list
+      Bughub.configuration.scrub_headers || []
     end
   end
 end
