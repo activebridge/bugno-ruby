@@ -19,7 +19,7 @@ module Bughub
         host: Socket.gethostname,
         root: Rails.root.to_s
       }
-      end
+    end
 
     def build_event(exception, env)
       @event = {
@@ -29,8 +29,13 @@ module Bughub
         server_data: server_data,
         backtrace: Backtrace.new(exception.backtrace).parse_backtrace
       }
-      @event.merge!(Bughub.configuration.get)
+      @event.merge!(configuration_data)
       @event.merge!(extract_request_data_from_rack(env))
+    end
+
+    def configuration_data
+      { framework: Bughub.configuration.framework,
+        environment: Bughub.configuration.environment }
     end
   end
 end

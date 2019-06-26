@@ -15,7 +15,6 @@ module Bughub
     initializer 'bughub.configuration' do
       config.after_initialize do
         Bughub.configure do |config|
-          config.framework = "Rails: #{::Rails::VERSION::STRING}"
           config.environment = ENV['RACK_ENV'] || ::Rails.env
         end
       end
