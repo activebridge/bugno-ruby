@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'bughub/request_data_extractor'
-require 'bughub/backtrace'
-require 'bughub/encoding/encoding'
+require 'bugno/request_data_extractor'
+require 'bugno/backtrace'
+require 'bugno/encoding/encoding'
 require 'rails'
 
-module Bughub
+module Bugno
   class Event
     include RequestDataExtractor
     attr_reader :event
@@ -34,8 +34,8 @@ module Bughub
     end
 
     def configuration_data
-      { framework: Bughub.configuration.framework,
-        environment: Bughub.configuration.environment }
+      { framework: Bugno.configuration.framework,
+        environment: Bugno.configuration.environment }
     end
   end
 end

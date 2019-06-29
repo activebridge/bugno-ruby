@@ -1,11 +1,11 @@
-# Bughub
+# Bugno
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'bughub', github: 'activebridge/bughub-ruby'
+gem 'bugno', github: 'activebridge/bugno-ruby'
 ```
 
 And then execute:
@@ -14,19 +14,19 @@ And then execute:
 
 ## Usage
 
-    $ rails g bughub [API-KEY]
+    $ rails g bugno [API-KEY]
 
 OR
 
-    $ rails g bughub
-    $ export BUGHUB-API_KEY=[API_KEY]
+    $ rails g bugno
+    $ export BUGNO-API_KEY=[API_KEY]
 
 ## Configuration
 
-To setup additional configuration navigate to `config/initializers/bughub.rb` in your app directory
+To setup additional configuration navigate to `config/initializers/bugno.rb` in your app directory
 
 #### Send rails exceptions
-By default BugHub does not send rails exceptions, if you want to change this behavior specify following line in config file:
+By default Bugno does not send rails exceptions, if you want to change this behavior specify following line in config file:
 
     config.exclude_rails_exceptions = false
 #### Specify rails exceptions suppressing

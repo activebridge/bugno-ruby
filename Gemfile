@@ -2,5 +2,5 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in bughub.gemspec
+# Specify your gem's dependencies in bugno.gemspec
 gemspec

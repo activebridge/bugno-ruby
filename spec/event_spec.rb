@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'dummy_environment'
-require 'bughub/event'
+require 'bugno/event'
 
-RSpec.describe Bughub::Event do
+RSpec.describe Bugno::Event do
   let(:env) { DummyEnv.new.env }
   let(:exception) { DummyEnv.new.dummy_exception }
-  let(:event) { Bughub::Event.new(exception, env).event }
+  let(:event) { Bugno::Event.new(exception, env).event }
 
   context 'returns hash with' do
     it 'timestamp' do

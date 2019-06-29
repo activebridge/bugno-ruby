@@ -1,7 +1,7 @@
-Bughub.configure do |config|
+Bugno.configure do |config|
 <% if api_key -%>
   config.api_key = '<%= api_key %>'
 <% else -%>
-  config.api_key = ENV['BUGHUB_API_KEY']
+  config.api_key = ENV['BUGNO_API_KEY']
 <% end -%>
 end

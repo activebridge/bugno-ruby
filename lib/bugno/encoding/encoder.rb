@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Bughub
+module Bugno
   module Encoding
     class Encoder
       ALL_ENCODINGS = [::Encoding::UTF_8, ::Encoding::ISO_8859_1, ::Encoding::ASCII_8BIT, ::Encoding::US_ASCII].freeze

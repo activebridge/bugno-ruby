@@ -2,11 +2,11 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'bughub/version'
+require 'bugno/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'bughub'
-  spec.version       = Bughub::VERSION
+  spec.name          = 'bugno'
+  spec.version       = Bugno::VERSION
   spec.authors       = ['Dmitry Syvoglaz']
   spec.email         = ['grayeyed16@gmail.com']
 

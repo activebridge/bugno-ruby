@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'bughub/reporter'
+require 'bugno/reporter'
 
-module Bughub
+module Bugno
   module Middleware
     module Rails
-      class BughubMiddleware
+      class BugnoMiddleware
         def initialize(app)
           @app = app
         end
@@ -20,8 +20,8 @@ module Bughub
         end
 
         def excluded_exception?(exception)
-          Bughub.configuration.exclude_rails_exceptions && \
-            Bughub.configuration.excluded_exceptions.include?(exception.class.inspect)
+          Bugno.configuration.exclude_rails_exceptions && \
+            Bugno.configuration.excluded_exceptions.include?(exception.class.inspect)
         end
       end
     end

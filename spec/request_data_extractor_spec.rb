@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'dummy_environment'
-require 'bughub/request_data_extractor'
+require 'bugno/request_data_extractor'
 
-RSpec.describe Bughub::RequestDataExtractor do
-  include Bughub::RequestDataExtractor
+RSpec.describe Bugno::RequestDataExtractor do
+  include Bugno::RequestDataExtractor
   let(:env) { DummyEnv.new.env }
 
   describe '#headers' do
