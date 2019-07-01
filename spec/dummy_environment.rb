@@ -4,12 +4,12 @@ class DummyEnv
   attr_accessor :env, :headers
 
   def initialize
-    @headers = [
-      'Version', 'Host', 'Connection',
-      'Content-Length', 'Cache-Control',
-      'Origin', 'Upgrade-Insecure-Requests',
-      'Content-Type', 'User-Agent', 'Accept',
-      'Referer', 'Accept-Encoding', 'Accept-Language'
+    @headers = %w[
+      Version Host Connection
+      Content-Length Cache-Control
+      Origin Upgrade-Insecure-Requests
+      Content-Type User-Agent Accept
+      Referer Accept-Encoding Accept-Language
     ]
     @env = {
       'rack.version' => [1, 3],

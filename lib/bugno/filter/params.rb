@@ -2,7 +2,7 @@
 
 require 'tempfile'
 
-module Bughub
+module Bugno
   module Filter
     class Params
       SKIPPED_CLASSES = [::Tempfile].freeze
@@ -66,7 +66,7 @@ module Bughub
         return scrub_array(params, options) if params.is_a?(Array)
 
         params.to_hash.each_with_object({}) do |(key, value), result|
-          encoded_key = Bughub::Encoding.encode(key).to_s
+          encoded_key = Bugno::Encoding.encode(key).to_s
           result[key] = if (fields_regex === encoded_key) && !(whitelist_regex === encoded_key)
                           scrub_value
                         elsif value.is_a?(Hash)
@@ -78,14 +78,14 @@ module Bughub
                         elsif skip_value?(value)
                           "Skipped value of class '#{value.class.name}'"
                         else
-                          bughub_filtered_param_value(value)
+                          bugno_filtered_param_value(value)
                         end
         end
       end
 
       def scrub_array(array, options)
         array.map do |value|
-          value.is_a?(Hash) ? scrub(value, options) : bughub_filtered_param_value(value)
+          value.is_a?(Hash) ? scrub(value, options) : bugno_filtered_param_value(value)
         end
       end
 
@@ -93,7 +93,7 @@ module Bughub
         '[FILTERED]'
       end
 
-      def bughub_filtered_param_value(value)
+      def bugno_filtered_param_value(value)
         if ATTACHMENT_CLASSES.include?(value.class.name)
           begin
             attachment_value(value)

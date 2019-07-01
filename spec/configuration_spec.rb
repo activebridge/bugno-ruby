@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'bughub/configuration'
+require 'bugno/configuration'
 
-RSpec.describe Bughub::Configuration do
-  let(:configuration) { Bughub::Configuration.new }
+RSpec.describe Bugno::Configuration do
+  let(:configuration) { Bugno::Configuration.new }
 
   context 'has' do
     it 'an api_key' do

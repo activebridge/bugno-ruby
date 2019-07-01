@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Bughub
-  API_URL = 'https://bughub-api.herokuapp.com/'
+module Bugno
+  API_URL = 'https://api.bugno.io/'
   IGNORE_DEFAULT = [
     'AbstractController::ActionNotFound',
     'ActionController::InvalidAuthenticityToken',
@@ -27,7 +27,7 @@ module Bughub
     def initialize
       @api_key = nil
       @environment = nil
-      @framework = nil
+      @framework = 'rails'
       @api_url = API_URL
       @excluded_exceptions = IGNORE_DEFAULT
       @exclude_rails_exceptions = true
@@ -38,11 +38,6 @@ module Bughub
       @scrub_user = true
       @scrub_password = true
       @scrub_whitelist = []
-    end
-
-    def get
-      { environment: @environment,
-        framework: @framework }
     end
   end
 end

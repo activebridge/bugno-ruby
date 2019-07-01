@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Bughub
+module Bugno
   module Encoding
     class << self
       attr_accessor :encoding_class
@@ -8,11 +8,11 @@ module Bughub
 
     def self.setup
       if String.instance_methods.include?(:encode)
-        require 'bughub/encoding/encoder'
-        self.encoding_class = Bughub::Encoding::Encoder
+        require 'bugno/encoding/encoder'
+        self.encoding_class = Bugno::Encoding::Encoder
       else
-        require 'bughub/encoding/legacy_encoder'
-        self.encoding_class = Bughub::Encoding::LegacyEncoder
+        require 'bugno/encoding/legacy_encoder'
+        self.encoding_class = Bugno::Encoding::LegacyEncoder
       end
     end
 
@@ -26,4 +26,4 @@ module Bughub
   end
 end
 
-Bughub::Encoding.setup
+Bugno::Encoding.setup

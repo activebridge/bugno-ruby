@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Bughub
+module Bugno
   class Backtrace
     MAX_CONTEXT_LENGTH = 4
 

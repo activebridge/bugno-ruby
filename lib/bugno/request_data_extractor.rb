@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'rack'
-require 'bughub/filter/params'
-require 'bughub/encoding/encoder'
+require 'bugno/filter/params'
+require 'bugno/encoding/encoder'
 
-module Bughub
+module Bugno
   module RequestDataExtractor
     ALLOWED_HEADERS_REGEX = /^HTTP_|^CONTENT_TYPE$|^CONTENT_LENGTH$/.freeze
     ALLOWED_BODY_PARSEABLE_METHODS = %w[POST PUT PATCH DELETE].freeze
@@ -30,11 +30,11 @@ module Bughub
     def scrub_params(params, sensitive_params)
       options = {
         params: params,
-        config: Bughub.configuration.scrub_fields,
+        config: Bugno.configuration.scrub_fields,
         extra_fields: sensitive_params,
-        whitelist: Bughub.configuration.scrub_whitelist
+        whitelist: Bugno.configuration.scrub_whitelist
       }
-      Bughub::Filter::Params.call(options)
+      Bugno::Filter::Params.call(options)
     end
 
     def sensitive_params_list(env)
@@ -47,7 +47,7 @@ module Bughub
         if name == 'Cookie'
           {}
         elsif sensitive_headers_list.include?(name)
-          { name => Bughub::Params.scrub_value }
+          { name => Bugno::Params.scrub_value }
         else
           { name => env[header] }
         end
@@ -97,7 +97,7 @@ module Bughub
     end
 
     def sensitive_headers_list
-      Bughub.configuration.scrub_headers || []
+      Bugno.configuration.scrub_headers || []
     end
   end
 end

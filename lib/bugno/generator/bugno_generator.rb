@@ -2,12 +2,12 @@
 
 require 'rails/generators'
 
-class BughubGenerator < Rails::Generators::Base
+class BugnoGenerator < Rails::Generators::Base
   source_root File.expand_path(__dir__)
 
   argument :api_key, required: false
 
   def generate_layout
-    template 'bughub_initializer.rb.erb', 'config/initializers/bughub.rb'
+    template 'bugno_initializer.rb.erb', 'config/initializers/bugno.rb'
   end
 end

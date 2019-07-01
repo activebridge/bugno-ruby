@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'bughub/generator/bughub_generator'
-require 'bughub/configuration'
-require 'bughub/railtie'
+require 'bugno/generator/bugno_generator'
+require 'bugno/configuration'
+require 'bugno/railtie'
 
-module Bughub
+module Bugno
   class Error < StandardError
   end
 

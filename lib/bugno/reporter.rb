@@ -4,17 +4,17 @@ require 'logger'
 require 'net/http'
 require 'uri'
 require 'json'
-require 'bughub/event'
+require 'bugno/event'
 
-module Bughub
+module Bugno
   class Reporter
     attr_reader :exception, :event, :api_url, :api_key
 
     def initialize(exception, env)
       @exception = exception
       @event = Event.new(exception, env)
-      @api_url = Bughub.configuration.api_url
-      @api_key = Bughub.configuration.api_key
+      @api_url = Bugno.configuration.api_url
+      @api_key = Bugno.configuration.api_key
     end
 
     def send
@@ -31,13 +31,13 @@ module Bughub
         response = http.request(request)
         logger(response)
       rescue StandardError => e
-        raise Bughub::Error, e.message
+        raise Bugno::Error, e.message
       end
     end
 
     def logger(response)
       logger = Logger.new(STDOUT)
-      logger.info("[Bughub] #{response.message} - #{response.code}")
+      logger.info("[Bugno] #{response.message} - #{response.code}")
     end
   end
 end
