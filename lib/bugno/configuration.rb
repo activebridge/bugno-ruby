@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bugno
-  API_URL = 'https://api.bugno.io/'
+  API_URL = 'https://api.bugno.io'
   IGNORE_DEFAULT = [
     'AbstractController::ActionNotFound',
     'ActionController::InvalidAuthenticityToken',
