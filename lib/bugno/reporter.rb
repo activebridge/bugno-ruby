@@ -35,9 +35,15 @@ module Bugno
       end
     end
 
+    def api_response(response)
+      body = JSON.parse(response.body)
+      message = body['message'] || body['error'] || response.message
+      "[Bugno]: #{message.capitalize} | Code: #{response.code}"
+    end
+
     def logger(response)
       logger = Logger.new(STDOUT)
-      logger.info("[Bugno] #{response.message} - #{response.code}")
+      logger.info(api_response(response))
     end
   end
 end
