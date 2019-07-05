@@ -36,7 +36,7 @@ module Bugno
     end
 
     def api_response(response)
-      body = JSON.parse(response.body)
+      body = JSON.parse(response.body.presence || '{}')
       message = body['message'] || body['error'] || response.message
       "[Bugno]: #{message.capitalize} | Code: #{response.code}"
     end
