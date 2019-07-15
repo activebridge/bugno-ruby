@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'logger'
 require 'net/http'
 require 'uri'
 require 'json'
@@ -24,14 +23,14 @@ module Bugno
       http.use_ssl = true if uri.scheme == 'https'
 
       header = { 'Content-Type': 'application/json' }
-      request = Net::HTTP::Post.new(uri.request_uri, header)
+      payload = Net::HTTP::Post.new(uri.request_uri, header)
       data = @event.event
-      request.body = data.to_json
+      payload.body = data.to_json
       begin
-        response = http.request(request)
-        logger(response)
+        response = http.request(payload)
+        Bugno.log_info(api_response(response))
       rescue StandardError => e
-        raise Bugno::Error, e.message
+        Bugno.log_error("[Bugno] #{e.message}")
       end
     end
 
@@ -39,11 +38,6 @@ module Bugno
       body = JSON.parse(response.body.presence || '{}')
       message = body['message'] || body['error'] || response.message
       "[Bugno]: #{message.capitalize} | Code: #{response.code}"
-    end
-
-    def logger(response)
-      logger = Logger.new(STDOUT)
-      logger.info(api_response(response))
     end
   end
 end

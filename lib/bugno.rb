@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bugno/logger'
 require 'bugno/generator/bugno_generator'
 require 'bugno/configuration'
 require 'bugno/railtie'
