@@ -23,6 +23,7 @@ module Bugno
     attr_accessor :scrub_user
     attr_accessor :scrub_password
     attr_accessor :scrub_whitelist
+    attr_accessor :current_user_method
 
     def initialize
       @api_key = nil
@@ -38,6 +39,7 @@ module Bugno
       @scrub_user = true
       @scrub_password = true
       @scrub_whitelist = []
+      @current_user_method = 'current_user'
     end
   end
 end
