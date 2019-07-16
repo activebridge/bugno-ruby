@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'bugno/reporter'
+require 'bugno/handler'
 
 module Bugno
   module Middleware
@@ -12,16 +12,9 @@ module Bugno
 
         def call(env)
           @app.call(env)
-        rescue Error
-          raise
         rescue Exception => e
-          Thread.new { Reporter.new(e, env).send } unless excluded_exception?(e)
+          Handler.new(e, env).handle_exception if Bugno.configured?
           raise e
-        end
-
-        def excluded_exception?(exception)
-          Bugno.configuration.exclude_rails_exceptions && \
-            Bugno.configuration.excluded_exceptions.include?(exception.class.inspect)
         end
       end
     end

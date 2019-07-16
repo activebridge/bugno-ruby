@@ -1,21 +1,16 @@
 # frozen_string_literal: true
 
-require 'bugno/reporter'
+require 'bugno/handler'
 
 module Bugno
   module Middleware
     module ShowExceptions
       def render_exception_with_bugno(env, exception)
         if exception.is_a?(ActionController::RoutingError)
-          Thread.new { Reporter.new(exception, extract_scope_from(env)).send } unless excluded_exception?(exception)
+          Handler.new(exception, extract_scope_from(env)).handle_exception if Bugno.configured?
         end
 
         render_exception_without_bugno(env, exception)
-      end
-
-      def excluded_exception?(exception)
-        Bugno.configuration.exclude_rails_exceptions && \
-          Bugno.configuration.excluded_exceptions.include?(exception.class.inspect)
       end
 
       def call_with_bugno(env)

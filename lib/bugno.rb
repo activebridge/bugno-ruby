@@ -11,17 +11,21 @@ module Bugno
 
   class << self
     attr_accessor :configuration
-  end
 
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
+    def configuration
+      @configuration ||= Configuration.new
+    end
 
-  def self.reset
-    @configuration = Configuration.new
-  end
+    def reset
+      @configuration = Configuration.new
+    end
 
-  def self.configure
-    yield(configuration)
+    def configured?
+      configuration.api_key
+    end
+
+    def configure
+      yield(configuration)
+    end
   end
 end

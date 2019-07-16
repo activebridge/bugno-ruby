@@ -134,10 +134,8 @@ module Bugno
       return {} unless defined?(Rails)
 
       begin
-        environment = { method: rollbar_request_method(env) }
+        environment = { method: request_method(env) }
 
-        # recognize_path() will return the controller, action
-        # route params (if any)and format (if defined)
         ::Rails.application.routes.recognize_path(env['PATH_INFO'],
                                                   environment)
       rescue StandardError
