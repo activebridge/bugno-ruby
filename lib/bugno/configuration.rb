@@ -23,6 +23,9 @@ module Bugno
     attr_accessor :scrub_user
     attr_accessor :scrub_password
     attr_accessor :scrub_whitelist
+    attr_accessor :current_user_method
+    attr_accessor :send_in_background
+    attr_accessor :usage_environments
 
     def initialize
       @api_key = nil
@@ -30,7 +33,7 @@ module Bugno
       @framework = 'rails'
       @api_url = API_URL
       @excluded_exceptions = IGNORE_DEFAULT
-      @exclude_rails_exceptions = true
+      @exclude_rails_exceptions = false
       @scrub_fields = %i[passwd password password_confirmation secret
                          confirm_password password_confirmation secret_token
                          api_key access_token session_id]
@@ -38,6 +41,9 @@ module Bugno
       @scrub_user = true
       @scrub_password = true
       @scrub_whitelist = []
+      @current_user_method = 'current_user'
+      @send_in_background = true
+      @usage_environments = %w[production]
     end
   end
 end

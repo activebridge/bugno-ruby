@@ -15,15 +15,24 @@ module Bugno
 
       post_params = scrub_params(post_params(rack_req), sensitive_params)
       get_params = scrub_params(get_params(rack_req), sensitive_params)
+      route_params = scrub_params(route_params(env), sensitive_params)
+      session = scrub_params(request_session(env), sensitive_params)
+      cookies = scrub_params(request_cookies(rack_req), sensitive_params)
+      person_data = scrub_params(person_data(env), sensitive_params)
 
       data = {
         url: request_url(env),
         ip_address: ip_address(env),
         headers: headers(env),
         http_method: request_method(env),
-        params: get_params
+        params: get_params,
+        route_params: route_params,
+        session: session,
+        cookies: cookies,
+        person_data: person_data
       }
       data[:params] = post_params if data[:params].empty?
+
       data
     end
 
@@ -37,8 +46,33 @@ module Bugno
       Bugno::Filter::Params.call(options)
     end
 
+    def person_data(env)
+      current_user = Bugno.configuration.current_user_method
+      controller = env['action_controller.instance']
+      person_data = begin
+                      controller.send(current_user).attributes
+                    rescue StandardError
+                      {}
+                    end
+      person_data
+    end
+
     def sensitive_params_list(env)
       Array(env['action_dispatch.parameter_filter'])
+    end
+
+    def request_session(env)
+      session = env.fetch('rack.session', {})
+
+      session.to_hash
+    rescue StandardError
+      {}
+    end
+
+    def request_cookies(rack_req)
+      rack_req.cookies
+    rescue StandardError
+      {}
     end
 
     def headers(env)
@@ -47,7 +81,7 @@ module Bugno
         if name == 'Cookie'
           {}
         elsif sensitive_headers_list.include?(name)
-          { name => Bugno::Params.scrub_value }
+          { name => Bugno::Params.scrub_value(env[header]) }
         else
           { name => env[header] }
         end
@@ -94,6 +128,19 @@ module Bugno
       rack_req.POST
     rescue StandardError
       {}
+    end
+
+    def route_params(env)
+      return {} unless defined?(Rails)
+
+      begin
+        environment = { method: request_method(env) }
+
+        ::Rails.application.routes.recognize_path(env['PATH_INFO'],
+                                                  environment)
+      rescue StandardError
+        {}
+      end
     end
 
     def sensitive_headers_list
