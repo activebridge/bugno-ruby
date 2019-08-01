@@ -81,7 +81,7 @@ module Bugno
         if name == 'Cookie'
           {}
         elsif sensitive_headers_list.include?(name)
-          { name => Bugno::Filter::Params.scrub_value(env[header]) }
+          { name => Bugno::Filter::Params.scrub_value }
         else
           { name => env[header] }
         end
