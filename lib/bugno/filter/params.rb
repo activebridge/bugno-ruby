@@ -13,6 +13,10 @@ module Bugno
         new.call(*args)
       end
 
+      def self.scrub_value
+        '[FILTERED]'
+      end
+
       def call(options = {})
         params = options[:params]
         return {} unless params
