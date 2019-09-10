@@ -18,14 +18,18 @@ module Bugno
 
     def build_data(exception, env)
       @data = {
-        title: exception.class.inspect,
-        message: exception.message,
+        title: truncate(exception.class.inspect),
+        message: truncate(exception.message),
         server_data: server_data,
         backtrace: Backtrace.new(exception.backtrace).parse_backtrace,
         created_at: Time.now.to_i
       }
       @data.merge!(configuration_data)
       @data.merge!(extract_request_data_from_rack(env))
+    end
+
+    def truncate(string)
+      string.is_a?(String) ? string[0...3000] : ''
     end
 
     def server_data
