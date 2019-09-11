@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.1.6
+
+- Truncate event message and title to less than three thousand characters
+
 ### v0.1.5
 
 - Add timestamp to event
