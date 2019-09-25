@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.1.7
+
+- Fix exclude_exception
+
 ### v0.1.6
 
 - Truncate event message and title to less than three thousand characters

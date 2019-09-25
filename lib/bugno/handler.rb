@@ -8,12 +8,13 @@ module Bugno
     attr_reader :event, :reporter, :exception, :env
 
     def initialize(exception, env)
+      @exception = exception
       @event = Event.new(exception, env)
       @reporter = Reporter.new
     end
 
     def handle_exception
-      return if excluded_exception?(exception) || !usage_environment?
+      return if excluded_exception? || !usage_environment?
 
       reporter.request.body = event.data.to_json
       Bugno.configuration.send_in_background ? Thread.new { reporter.send } : reporter.send
@@ -21,9 +22,9 @@ module Bugno
 
     private
 
-    def excluded_exception?(exception)
+    def excluded_exception?
       Bugno.configuration.exclude_rails_exceptions && \
-        Bugno.configuration.excluded_exceptions.include?(exception.class.inspect)
+        Bugno.configuration.excluded_exceptions.include?(@exception.class.inspect)
     end
 
     def usage_environment?
