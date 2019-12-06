@@ -5,11 +5,11 @@ require 'bugno/reporter'
 
 module Bugno
   class Handler
-    attr_reader :event, :reporter, :exception, :env
+    attr_reader :event, :reporter, :exception, :env, :job
 
-    def initialize(exception, env)
+    def initialize(exception, env: nil, job: nil)
       @exception = exception
-      @event = Event.new(exception, env)
+      @event = Event.new(exception, env: env, job: job)
       @reporter = Reporter.new
     end
 

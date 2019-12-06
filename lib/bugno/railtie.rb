@@ -7,6 +7,7 @@ module Bugno
     initializer 'bugno.middleware.rails' do |app|
       require 'bugno/middleware/rails/bugno'
       require 'bugno/middleware/rails/show_exceptions'
+      require 'bugno/middleware/rails/active_job_extensions'
       app.config.middleware.insert_after ActionDispatch::DebugExceptions,
                                          Bugno::Middleware::Rails::BugnoMiddleware
       ActionDispatch::DebugExceptions.send(:include, Bugno::Middleware::ShowExceptions)
