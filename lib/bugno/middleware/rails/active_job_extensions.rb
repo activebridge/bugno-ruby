@@ -29,11 +29,11 @@ module Bugno
 
         def job_data(job)
           data = {
-            :active_job => job.class.name,
-            :arguments => job.arguments,
-            :scheduled_at => job.scheduled_at,
-            :job_id => job.job_id,
-            :locale => job.locale
+            active_job: job.class.name,
+            arguments: job.arguments,
+            scheduled_at: job.scheduled_at,
+            job_id: job.job_id,
+            locale: job.locale
           }
           data[:provider_job_id] = job.provider_job_id if job.respond_to?(:provider_job_id)
           data
