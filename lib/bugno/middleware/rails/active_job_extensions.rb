@@ -17,17 +17,19 @@ module Bugno
         def capture_and_reraise(job, block)
           block.call
         rescue Exception => e
+
           Handler.new(e, job: job_data(job)).handle_exception if Bugno.configured?
           raise e
         end
 
-        # def supported_by_specific_integration?(job)
-        #   return ADAPTERS.include?(job.class.queue_adapter.to_s) if ::Rails.version.to_f < 5.0
-        #
-        #   ADAPTERS.include?(job.class.queue_adapter.class.to_s)
-        # end
+        def supported_by_specific_integration?(job)
+          return ADAPTERS.include?(job.class.queue_adapter.to_s) if ::Rails.version.to_f < 5.0
+
+          ADAPTERS.include?(job.class.queue_adapter.class.to_s)
+        end
 
         def job_data(job)
+          return {} if supported_by_specific_integration?(job)
           data = {
             active_job: job.class.name,
             arguments: job.arguments,
