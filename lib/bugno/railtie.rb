@@ -17,6 +17,7 @@ module Bugno
       config.after_initialize do
         Bugno.configure do |config|
           config.environment = ENV['RACK_ENV'] || ::Rails.env
+          config.framework = 'rails'
         end
       end
     end
