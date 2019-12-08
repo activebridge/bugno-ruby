@@ -17,8 +17,7 @@ module Bugno
         def capture_and_reraise(job, block)
           block.call
         rescue Exception => e
-
-          Handler.new(e, job: job_data(job)).handle_exception if Bugno.configured?
+          Handler.call(exception: e, job: job_data(job)) if Bugno.configured?
           raise e
         end
 
