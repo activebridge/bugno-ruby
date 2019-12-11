@@ -5,19 +5,23 @@ require 'bugno/reporter'
 
 module Bugno
   class Handler
-    attr_reader :event, :reporter, :exception, :env
+    attr_reader :event, :reporter, :exception, :env, :job
 
-    def initialize(exception, env)
-      @exception = exception
-      @event = Event.new(exception, env)
+    def initialize(options = {})
+      @exception = options[:exception]
+      @event = Event.new(exception: options[:exception], env: options[:env], job: options[:job])
       @reporter = Reporter.new
+    end
+
+    def self.call(options = {})
+      self.new(options).handle_exception
     end
 
     def handle_exception
       return if excluded_exception? || !usage_environment?
 
-      reporter.request.body = event.data.to_json
-      Bugno.configuration.send_in_background ? Thread.new { reporter.send } : reporter.send
+      @reporter.request.body = @event.data.to_json
+      Bugno.configuration.send_in_background ? Thread.new { @reporter.send } : @reporter.send
     end
 
     private

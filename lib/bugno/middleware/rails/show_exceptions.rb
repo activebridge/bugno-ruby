@@ -7,7 +7,7 @@ module Bugno
     module ShowExceptions
       def render_exception_with_bugno(env, exception)
         if exception.is_a?(ActionController::RoutingError)
-          Handler.new(exception, extract_scope_from(env)).handle_exception if Bugno.configured?
+          Handler.call(exception: exception, env: extract_scope_from(env)) if Bugno.configured?
         end
 
         render_exception_without_bugno(env, exception)

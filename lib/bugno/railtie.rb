@@ -7,6 +7,7 @@ module Bugno
     initializer 'bugno.middleware.rails' do |app|
       require 'bugno/middleware/rails/bugno'
       require 'bugno/middleware/rails/show_exceptions'
+      require 'bugno/middleware/rails/active_job_extensions'
       app.config.middleware.insert_after ActionDispatch::DebugExceptions,
                                          Bugno::Middleware::Rails::BugnoMiddleware
       ActionDispatch::DebugExceptions.send(:include, Bugno::Middleware::ShowExceptions)
@@ -16,6 +17,7 @@ module Bugno
       config.after_initialize do
         Bugno.configure do |config|
           config.environment = ENV['RACK_ENV'] || ::Rails.env
+          config.framework = 'rails'
         end
       end
     end

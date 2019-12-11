@@ -30,7 +30,7 @@ module Bugno
     def initialize
       @api_key = nil
       @environment = nil
-      @framework = 'rails'
+      @framework = 'ruby'
       @api_url = API_URL
       @excluded_exceptions = IGNORE_DEFAULT
       @exclude_rails_exceptions = false

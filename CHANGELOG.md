@@ -1,5 +1,10 @@
 # Change Log
 
+### v0.1.8
+
+- Add active job support by default
+- Change event class architecture
+
 ### v0.1.7
 
 - Fix exclude_exception

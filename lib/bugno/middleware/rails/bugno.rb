@@ -12,8 +12,10 @@ module Bugno
 
         def call(env)
           @app.call(env)
+        rescue Error
+          raise
         rescue Exception => e
-          Handler.new(e, env).handle_exception if Bugno.configured?
+          Handler.call(exception: e, env: env) if Bugno.configured?
           raise e
         end
       end
