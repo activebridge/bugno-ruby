@@ -5,12 +5,12 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'bugno', github: 'activebridge/bugno-ruby'
+gem 'bugno-ruby'
 ```
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 ## Usage
 

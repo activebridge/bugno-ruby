@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'bugno/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'bugno'
+  spec.name          = 'bugno-ruby'
   spec.version       = Bugno::VERSION
   spec.authors       = ['Dmitry Syvoglaz']
   spec.email         = ['grayeyed16@gmail.com']
