@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bugno-ruby (0.1.8)
+    bugno (0.1.8)
 
 GEM
   remote: https://rubygems.org/
@@ -159,7 +159,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bugno-ruby!
+  bugno!
   bundler (~> 2.0)
   pry
   rails
