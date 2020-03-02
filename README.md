@@ -57,6 +57,12 @@ Filters sensetive params(e.g. passwords, tokens, credit cards)
 ##### Defaults header:
     Authorization
 
+#### Use bugno handler in rescue case:
+     def index
+        no_method_error
+        rescue StandardError => e
+        Bugno::Handler.call(exception: e)
+     end
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
