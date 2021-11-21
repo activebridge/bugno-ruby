@@ -5,7 +5,6 @@ module Bugno
     class Encoder
       ALL_ENCODINGS = [::Encoding::UTF_8, ::Encoding::ISO_8859_1, ::Encoding::ASCII_8BIT, ::Encoding::US_ASCII].freeze
       ASCII_ENCODINGS = [::Encoding::US_ASCII, ::Encoding::ASCII_8BIT, ::Encoding::ISO_8859_1].freeze
-      ENCODING_OPTIONS = { invalid: :replace, undef: :replace, replace: '' }.freeze
       UTF8 = 'UTF-8'
       BINARY = 'binary'
 
@@ -59,7 +58,6 @@ module Bugno
       def encoding_args(value)
         args = [UTF8]
         args << BINARY if ASCII_ENCODINGS.include?(value.encoding)
-        args << ENCODING_OPTIONS
 
         args
       end
