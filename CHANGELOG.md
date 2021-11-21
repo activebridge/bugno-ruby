@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.1.9
+
+- Fix encoding method invocation which caused errors on ruby 3
+
 ### v0.1.8
 
 - Add active job support by default
