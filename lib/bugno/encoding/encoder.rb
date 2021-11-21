@@ -23,7 +23,10 @@ module Bugno
         encoded_value = if encoding == ::Encoding::UTF_8 && value.valid_encoding?
                           value
                         else
-                          force_encoding(value).encode(*encoding_args(value))
+                          force_encoding(value).encode(
+                            *encoding_args(value),
+                            invalid: :replace, undef: :replace, replace: ''
+                          )
                         end
 
         object.is_a?(Symbol) ? encoded_value.to_sym : encoded_value
